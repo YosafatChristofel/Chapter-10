@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home | SWEETER</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <textarea id="textarea-post" class="textarea" placeholder="What's on your mind?"></textarea>
+            <button onclick="post()" class="button is-link">Post</button>
+        </div>
+        <div id="post-box" class="container">
+            <!-- Posts will be loaded here -->
+        </div>
+    </section>
+
+    <script>
+    function post() {
+        let comment = $("#textarea-post").val();
+        let today = new Date().toISOString();
+        $.ajax({
+            type: "POST",
+            url: "/posting",
+            data: {
+                comment_give: comment,
+                date_give: today
+            },
+            success: function (response) {
+                $("#textarea-post").val('');
+                get_posts();
+            }
+        });
+    }
+
+    function get_posts() {
+        $("#post-box").empty();
+        $.ajax({
+            type: "GET",
+            url: "/get_posts",
+            data: {},
+            success: function (response) {
+                if (response["result"] === "success") {
+                    let posts = response["posts"];
+                    posts.forEach(post => {
+                        let postHTML = `<div class="box">
+                            <p><strong>${post.profile_name}</strong> (@${post.username})</p>
+                            <p>${post.comment}</p>
+                            <p>${new Date(post.date).toLocaleString()}</p>
+                        </div>`;
+                        $("#post-box").append(postHTML);
+                    });
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        get_posts();
+    });
+    </script>
+</body>
+</html>

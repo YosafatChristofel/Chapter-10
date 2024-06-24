@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | SWEETER</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        .button.is-sparta {
+            background-color: #e8344e;
+            color: #fff;
+            border-color: transparent;
+        }
+        .button.is-sparta.is-outlined {
+            background-color: transparent;
+            color: #e8344e;
+            border-color: #e8344e;
+        }
+        .help.is-danger {
+            color: red;
+        }
+        body {
+            background-color: RGBA(232, 52, 78, 0.2);
+            min-height: 100vh;
+        }
+        .section {
+            padding: 1rem 1.5rem;
+            max-width: 750px;
+            margin: auto;
+        }
+        .title {
+            font-weight: 800;
+            font-size: 5rem;
+        }
+        .subtitle {
+            font-size: 2rem;
+        }
+        .is-sparta {
+            color: #e8344e !important;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero is-white">
+        <div class="hero-body has-text-centered" style="padding-bottom: 1rem; margin: auto">
+            <h1 class="title is-sparta">SWEETER</h1>
+            <h3 class="subtitle is-sparta">The sweetest site</h3>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="box" style="max-width: 480px; margin: auto">
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <div class="field">
+                                <label class="label">ID</label>
+                                <div class="control has-icons-left">
+                                    <input id="input-username" class="input" type="text" placeholder="Enter your ID">
+                                    <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Password</label>
+                                <div class="control has-icons-left">
+                                    <input id="input-password" class="input" type="password" placeholder="Enter your password">
+                                    <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
+                                </div>
+                            </div>
+                            <div class="field is-grouped">
+                                <p class="control">
+                                    <button class="button is-sparta" onclick="sign_in()">Sign In</button>
+                                </p>
+                                <p class="control">
+                                    <button class="button is-light" onclick="clearInputs()">Clear</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        // Function to handle sign in
+        function sign_in() {
+            let username = $("#input-username").val();
+            let password = $("#input-password").val();
+            // Add AJAX call to sign in, handling the server response
+            $.ajax({
+                type: "POST",
+                url: "/sign_in",
+                data: {
+                    username_give: username,
+                    password_give: password,
+                },
+                success: function(response) {
+                    if (response["result"] === "success") {
+                        // Handle successful login, e.g., redirect or display a message
+                        alert("Login successful!");
+                    } else {
+                        // Handle login failure, e.g., display an error message
+                        alert("Failed to login. Please check your credentials and try again.");
+                    }
+                }
+            });
+        }
+
+        // Function to clear the input fields
+        function clearInputs() {
+            $("#input-username").val('');
+            $("#input-password").val('');
+        }
+    </script>
+</body>
+</html>

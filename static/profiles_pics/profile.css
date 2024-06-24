@@ -1,0 +1,43 @@
+/* profile.css */
+
+body {
+    background-color: #f0f0f0;
+    font-family: 'Arial', sans-serif;
+}
+
+.navbar {
+    border-bottom: 1px solid #ddd;
+}
+
+.hero {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+}
+
+.hero-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.media {
+    margin: 1rem 0;
+}
+
+.media-left .image img {
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+.media-content .content {
+    margin-left: 1rem;
+}
+
+#input-post {
+    width: 100%;
+}
+
+#post-box .box {
+    margin: 1rem 0;
+}
